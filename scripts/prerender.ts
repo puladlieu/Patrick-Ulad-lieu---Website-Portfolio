@@ -1,15 +1,16 @@
 // Turns the built single-page app into real HTML so search engines and link previews
 // see every section without running JavaScript. Run by `npm run build` (Node 22.6+).
-import { readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { existsSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 
 const root = resolve(import.meta.dirname, '..')
 const dist = resolve(root, 'dist')
 
-// Same value Vite reads from .env
-const env = readFileSync(resolve(root, '.env'), 'utf8')
-const siteUrl = (env.match(/^VITE_SITE_URL=(.*)$/m)?.[1].trim() || 'https://patrickuladlieu.netlify.app').replace(/\/$/, '')
+// Same value Vite uses: the host's environment variable first, then the local .env file
+const envFile = resolve(root, '.env')
+const fromFile = existsSync(envFile) ? readFileSync(envFile, 'utf8').match(/^VITE_SITE_URL=(.*)$/m)?.[1] : undefined
+const siteUrl = (process.env.VITE_SITE_URL || fromFile?.trim() || 'https://patrickuladlieu.netlify.app').replace(new RegExp('/+$'), '')
 
 const server = await import(pathToFileURL(resolve(root, 'dist-ssr/entry-server.js')).href)
 const appHtml: string = server.render()

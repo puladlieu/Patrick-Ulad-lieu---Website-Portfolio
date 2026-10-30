@@ -7,10 +7,13 @@ import { pathToFileURL } from 'node:url'
 const root = resolve(import.meta.dirname, '..')
 const dist = resolve(root, 'dist')
 
-// Same value Vite uses: the host's environment variable first, then the local .env file
-const envFile = resolve(root, '.env')
-const fromFile = existsSync(envFile) ? readFileSync(envFile, 'utf8').match(/^VITE_SITE_URL=(.*)$/m)?.[1] : undefined
-const siteUrl = (process.env.VITE_SITE_URL || fromFile?.trim() || 'https://patrickuladlieu.netlify.app').replace(new RegExp('/+$'), '')
+// Same value Vite uses: the host environment variable first, then .env.production / .env
+const fromFile = ['.env.production', '.env']
+  .map((f) => resolve(root, f))
+  .filter((f) => existsSync(f))
+  .map((f) => readFileSync(f, 'utf8').match(/^VITE_SITE_URL=(.*)$/m)?.[1]?.trim())
+  .find(Boolean)
+const siteUrl = (process.env.VITE_SITE_URL || fromFile || 'https://patrickuladlieu.netlify.app').replace(new RegExp('/+$'), '')
 
 const server = await import(pathToFileURL(resolve(root, 'dist-ssr/entry-server.js')).href)
 const appHtml: string = server.render()

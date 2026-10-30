@@ -15,7 +15,7 @@ static_sites:
         value: "24"
         scope: BUILD_TIME
       - key: VITE_SITE_URL
-        value: https://YOUR-APP-ADDRESS.ondigitalocean.app
+        value: https://patrick-ulad-lieu-stwsh.ondigitalocean.app
         scope: BUILD_TIME
       - key: VITE_WEB3FORMS_KEY
         value: ""

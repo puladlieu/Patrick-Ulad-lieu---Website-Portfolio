@@ -200,8 +200,8 @@ export const EXPERIENCE: Role[] = [
 ]
 
 export const EDUCATION = [
-  { degree: 'Bachelor of Science in Computer Science', short: 'BS', institution: 'Wilmington University', year: 'Sep 2024 – Dec 2025',
-    details: 'Graduated December 2025.', listLabel: 'Coursework',
+  { degree: 'Bachelor of Science in Computer Science', short: 'BS', institution: 'Wilmington University', year: 'Sep 2024 – 2026',
+    details: 'Graduated in 2026.', listLabel: 'Coursework',
     list: ['Java Programming II', 'JavaScript I', 'Systems Analysis & Design', 'User-Centered Design', 'Web Design & Development', 'Data Visualization', 'Fundamentals in Cybersecurity', 'Networks & Telecomms', 'Programming with Python', 'Computer Hardware & Operation', 'Experiential Learning in CSC'] },
   { degree: 'Associate of Science in Computer Science', short: 'AS', institution: 'Community College of Philadelphia', year: '2021 – 2024',
     details: 'Octavius Catto Scholar and Ambassador; Center for Male Engagement (CME).', listLabel: 'Coursework',

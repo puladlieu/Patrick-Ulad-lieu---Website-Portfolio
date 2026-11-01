@@ -41,7 +41,7 @@ function IdCard() {
           ))}
           <div>
             <dt className="font-mono text-[10px] leading-tight tracking-[.18em] text-muted-foreground uppercase">Education</dt>
-            <dd className="mt-[3px] font-heading text-[16px] leading-tight font-semibold tracking-[.04em]">BS COMPUTER SCIENCE · 2025</dd>
+            <dd className="mt-[3px] font-heading text-[16px] leading-tight font-semibold tracking-[.04em]">BS COMPUTER SCIENCE · 2026</dd>
           </div>
         </dl>
       </div>

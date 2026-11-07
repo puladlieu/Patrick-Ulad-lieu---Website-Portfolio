@@ -4,19 +4,21 @@ import { NOTES } from '@/data/notes'
 import { PERSON, PROJECTS } from '@/data/profile'
 import { Reveal } from './motion'
 import { SectionHead } from './SectionHead'
+import { cn } from '@/lib/utils'
 
 const fmt = (d: string) => new Date(`${d}T12:00:00`).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
 
-export function Notes() {
+export function Notes({ page = false }: { page?: boolean }) {
+  const CardTitle = page ? 'h2' : 'h3'
   return (
-    <section id="notes" className="py-20 pt-[120px] sm:py-[110px] sm:pt-[150px]" aria-labelledby="notes-title">
+    <section id="notes" className={cn('py-20 sm:py-[110px]', page && 'pt-[120px] sm:pt-[150px]')} aria-labelledby="notes-title">
       <div className="wrap">
-        <SectionHead h1 id="notes" num="06" eyebrow="Writing" title="Notes" desc="Practical write-ups on forecasting, data migration, and automation, drawn from real projects." />
+        <SectionHead h1={page} id="notes" num="06" eyebrow="Writing" title="Notes" desc="Practical write-ups on forecasting, data migration, and automation, drawn from real projects." />
         <Reveal className="grid gap-4 lg:grid-cols-2">
           {NOTES.map((n) => (
             <a key={n.slug} href={`/notes/${n.slug}/`} className="panel cut group flex flex-col p-6 transition-colors hover:text-primary sm:p-8">
               <time dateTime={n.date} className="label">{fmt(n.date)}</time>
-              <h2 className="mt-3 font-heading text-[26px] leading-[1.1] font-bold tracking-[.03em] uppercase">{n.title}</h2>
+              <CardTitle className="mt-3 font-heading text-[26px] leading-[1.1] font-bold tracking-[.03em] uppercase">{n.title}</CardTitle>
               <p className="mt-3 flex-1 text-text-2 group-hover:text-foreground">{n.description}</p>
               <span className="mt-6 inline-flex items-center gap-2 font-heading text-base font-semibold tracking-[.12em] text-primary uppercase">Read <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" /></span>
             </a>

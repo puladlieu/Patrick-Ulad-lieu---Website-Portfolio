@@ -3,14 +3,16 @@ import { AnimatePresence, m } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { Button, buttonVariants } from '@/components/ui/button'
 import { NAV, PERSON, TICKER } from '@/data/profile'
+import { useActivePath } from '@/lib/scroll-route'
 import { cn } from '@/lib/utils'
 import { LinkedInIcon, PMark } from './icons'
 
 const pad = (n: number) => String(n).padStart(2, '0')
 
 export function Header({ path }: { path: string }) {
-  // A nav item is current on its own page and on pages beneath it
-  const active = NAV.find((n) => path.startsWith(n.href))?.href ?? null
+  // A nav item is current on its own page, on pages beneath it, and (on the home page) while its section is on screen
+  const current = useActivePath(path)
+  const active = NAV.find((n) => current.startsWith(n.href))?.href ?? null
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 

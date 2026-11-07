@@ -4,12 +4,14 @@ import { BootScreen } from '@/components/BootScreen'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { findPage } from '@/pages'
+import { useScrollRoute } from '@/lib/scroll-route'
 
 // Animation engine loads in its own chunk after the page is visible
 const loadMotionFeatures = () => import('@/lib/motion-features').then((r) => r.default)
 
 export default function App({ path }: { path: string }) {
   const page = findPage(path)
+  useScrollRoute(page.path === '/')
   return (
     <MotionConfig reducedMotion="user">
       <LazyMotion features={loadMotionFeatures} strict>

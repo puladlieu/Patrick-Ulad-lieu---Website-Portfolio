@@ -4,14 +4,15 @@ import { Disclosure } from './Disclosure'
 import { HexIcon } from './icons'
 import { Reveal } from './motion'
 import { SectionHead } from './SectionHead'
+import { cn } from '@/lib/utils'
 
 const pad = (n: number) => String(n).padStart(2, '0')
 
-export function Stack() {
+export function Stack({ page = false }: { page?: boolean }) {
   return (
-    <section id="stack" className="py-20 pt-[120px] sm:py-[110px] sm:pt-[150px]" aria-labelledby="stack-title">
+    <section id="stack" className={cn('py-20 sm:py-[110px]', page && 'pt-[120px] sm:pt-[150px]')} aria-labelledby="stack-title">
       <div className="wrap">
-        <SectionHead h1 id="stack" num="01" eyebrow="Skills" title="Tech stack" desc="Languages, frameworks, systems, and engineering practices I use day to day. Open a category to see everything in it." />
+        <SectionHead h1={page} id="stack" num="01" eyebrow="Skills" title="Tech stack" desc="Languages, frameworks, systems, and engineering practices I use day to day. Open a category to see everything in it." />
         <Reveal className="grid items-start gap-4 lg:grid-cols-2">
           {STACK.map((c, i) => (
             <Disclosure key={c.key} defaultOpen={i < 2} icon={<HexIcon name={c.icon} />} kicker={`Category ${pad(i + 1)}`} title={c.title} count={`[${pad(c.items.length)}]`}>

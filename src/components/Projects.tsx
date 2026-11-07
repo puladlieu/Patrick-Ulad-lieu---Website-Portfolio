@@ -7,6 +7,7 @@ import { roleId } from '@/lib/slug'
 import { HexIcon } from './icons'
 import { fadeUp, StaggerGroup } from './motion'
 import { SectionHead } from './SectionHead'
+import { cn } from '@/lib/utils'
 
 const pad = (n: number) => String(n).padStart(2, '0')
 
@@ -110,11 +111,13 @@ export function ProjectDetail({ slug }: { slug: string }) {
   )
 }
 
-export function Projects() {
+export function Projects({ page = false }: { page?: boolean }) {
+  const CardTitle = page ? 'h2' : 'h3'
   return (
-    <section id="projects" className="py-20 pt-[120px] sm:py-[110px] sm:pt-[150px]" aria-labelledby="projects-title">
+    // Card titles sit under the section heading: h2 on the projects page, h3 on the home page
+    <section id="projects" className={cn('py-20 sm:py-[110px]', page && 'pt-[120px] sm:pt-[150px]')} aria-labelledby="projects-title">
       <div className="wrap">
-        <SectionHead h1 id="projects" num="02" eyebrow="Case studies" title="Selected projects" desc="What I built, why it was needed, and what changed because of it. Each project has its own write-up." />
+        <SectionHead h1={page} id="projects" num="02" eyebrow="Case studies" title="Selected projects" desc="What I built, why it was needed, and what changed because of it. Each project has its own write-up." />
         <StaggerGroup gap={0.12} className="grid gap-5 lg:grid-cols-3">
           {PROJECTS.map((p, i) => (
             <m.article key={p.slug} data-reveal variants={fadeUp} className="panel cut flex flex-col p-6 sm:p-8">
@@ -122,7 +125,7 @@ export function Projects() {
                 <HexIcon name={p.icon} />
                 <span className="font-brand text-[44px] leading-none text-foreground/10">{pad(i + 1)}</span>
               </div>
-              <h2 className="mt-5 font-heading text-[26px] leading-[1.05] font-bold tracking-[.03em] uppercase">{p.title}</h2>
+              <CardTitle className="mt-5 font-heading text-[26px] leading-[1.05] font-bold tracking-[.03em] uppercase">{p.title}</CardTitle>
               <div className="label mt-2">{p.org} · {p.period}</div>
               <dl className="mt-5 grid gap-3">
                 {p.metrics.map(([v, k]) => (

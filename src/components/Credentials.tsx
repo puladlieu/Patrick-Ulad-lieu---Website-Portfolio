@@ -13,12 +13,12 @@ const pad = (n: number) => String(n).padStart(2, '0')
 // College-level awards show first; high school ones sit behind a toggle (still in the HTML)
 const FIRST_HONORS = 4
 
-export function Credentials() {
+export function Credentials({ page = false }: { page?: boolean }) {
   const [allHonors, setAllHonors] = useState(false)
   return (
-    <section id="credentials" className="py-20 pt-[120px] sm:py-[110px] sm:pt-[150px]" aria-labelledby="credentials-title">
+    <section id="credentials" className={cn('py-20 sm:py-[110px]', page && 'pt-[120px] sm:pt-[150px]')} aria-labelledby="credentials-title">
       <div className="wrap">
-        <SectionHead h1 id="credentials" num="04" eyebrow="Education" title="Education & credentials" desc="Computer science degrees and coursework, plus certifications, scholarships, and awards." />
+        <SectionHead h1={page} id="credentials" num="04" eyebrow="Education" title="Education & credentials" desc="Computer science degrees and coursework, plus certifications, scholarships, and awards." />
 
         <StaggerGroup className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {EDUCATION.map((ed, i) => (

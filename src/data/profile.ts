@@ -13,8 +13,7 @@ export const PERSON = {
   email: 'puladlieu@gmail.com',
   linkedin: 'https://www.linkedin.com/in/patrickuladlieu/',
   workStyle: 'Remote / Hybrid / On-site',
-  status: 'Open to full-time software engineering & tech advisory roles',
-  summary:
+  status: 'Open to full-time software engineering & tech advisory roles · Remote or on-site',  summary:
     'Full-stack development, data pipelines & analytics automation, and systems integration. I build the software that turns fragmented data and manual work into dependable, automated systems, from a hardware forecast covering 30,000 City employees to precision laser control routines.',
   // Drop files into /public and put their paths here, e.g. '/photo.jpg' and '/Patrick-Ulad-Lieu-Resume.pdf'.
   // Leave empty to hide the headshot (P logo shows instead) or the résumé buttons.
@@ -35,7 +34,7 @@ export const NAV = [
 ] as const
 
 export const TICKER: [string, string][] = [
-  ['Patrick Ulad-Lieu', 'Software Engineer'], ['Status', 'Available'], ['Location', 'Greater Philadelphia'],
+  ['Patrick Ulad-Lieu', 'Software Engineer'], ['Status', 'Available'], ['Work style', 'Remote / Hybrid / On-site'], ['Location', 'Greater Philadelphia'],
   ['Lifecycle forecasting', '30,000+ employees'], ['Assets migrated', '100,000+'], ['Endpoints analyzed', '14,000+'],
   ['Tracking accuracy', '+25%'], ['Entry errors', '−30%'], ['Support satisfaction', '95%+'], ['Degree', 'BS Computer Science'],
 ]

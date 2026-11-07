@@ -53,8 +53,8 @@ const projectPages: PageDef[] = PROJECTS.map((p) => ({
 export const PAGES: PageDef[] = [
   {
     path: '/', nav: 'Home',
-    title: `${NAME} — Software Engineer | Systems Automation | Philadelphia`,
-    description: 'Patrick Ulad-Lieu is a software engineer and systems automation specialist in Greater Philadelphia: hardware lifecycle forecasting for 30,000+ City employees, 100,000+ assets migrated to TeamDynamix, full-stack development, and data pipelines.',
+    title: `${NAME} — Software Engineer | Systems Automation | Philadelphia & Remote`,
+    description: 'Patrick Ulad-Lieu is a software engineer and systems automation specialist in Greater Philadelphia, open to remote roles: hardware lifecycle forecasting for 30,000+ City employees, 100,000+ assets migrated to TeamDynamix, full-stack development, and data pipelines.',
     priority: 1.0,
     render: () => <Home />,
   },
@@ -104,8 +104,8 @@ export const PAGES: PageDef[] = [
   ...notePages,
   {
     path: '/contact/', nav: 'Contact',
-    title: `Contact ${NAME} — Software Engineer in Philadelphia`,
-    description: 'Hiring for a software engineering role, need a data pipeline automated, or want a technical advisor? Contact Patrick Ulad-Lieu in Greater Philadelphia.',
+    title: `Contact ${NAME} — Software Engineer, Philadelphia or Remote`,
+    description: 'Hiring for a software engineering role, need a data pipeline automated, or want a technical advisor? Contact Patrick Ulad-Lieu in Greater Philadelphia, open to remote, hybrid, or on-site work.',
     priority: 0.8,
     render: () => <Contact page />,
   },

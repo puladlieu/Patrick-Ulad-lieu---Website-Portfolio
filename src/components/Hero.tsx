@@ -15,6 +15,7 @@ function IdCard() {
     ['Role', PERSON.role],
     ['Specialty', PERSON.specialty],
     ['Base', PERSON.location],
+    ['Work style', PERSON.workStyle],
   ]
   return (
     <aside aria-label="Profile summary" className={cn('relative mx-auto mb-2.5 w-full max-w-[440px] border-[1.5px] border-foreground bg-card shadow-[6px_6px_0_var(--foreground)] min-[900px]:mr-0 min-[900px]:ml-auto sm:shadow-[10px_10px_0_var(--foreground)]', enter, 'delay-300')}>
@@ -57,7 +58,7 @@ function IdCard() {
         </ul>
       </div>
       <div className="flex items-center justify-between gap-3.5 border-t border-dashed border-line-2 px-[18px] py-3.5">
-        <div className="flex items-center gap-2 font-mono text-[11px] leading-snug tracking-[.14em] uppercase"><span className="status-dot" />Available · Full-time SWE</div>
+        <div className="flex items-center gap-2 font-mono text-[11px] leading-snug tracking-[.14em] uppercase"><span className="status-dot" />Available · Remote OK</div>
         <div className="barcode h-7 w-[72px] flex-none sm:w-28" aria-hidden />
       </div>
     </aside>

@@ -85,6 +85,9 @@ export function Contact({ page = false }: { page?: boolean }) {
                 <span className="label">Location</span><span className="font-mono text-sm">{PERSON.location}</span>
               </div>
               <div className="flex flex-wrap items-center justify-between gap-3 bg-card px-4 py-3.5">
+                <span className="label">Work style</span><span className="font-mono text-sm">{PERSON.workStyle}</span>
+              </div>
+              <div className="flex flex-wrap items-center justify-between gap-3 bg-card px-4 py-3.5">
                 <span className="label">Profile</span>
                 <a href={PERSON.linkedin} target="_blank" rel="noopener noreferrer me" className={buttonVariants({ variant: 'mini', size: 'mini' })}>LinkedIn</a>
               </div>

@@ -19,4 +19,6 @@ Personal portfolio for Patrick Ulad-Lieu. React 19 + Vite + Tailwind 4, pre-rend
 - Never invent facts, numbers, or quotes about Patrick's work. Only use what is already in `profile.ts`, or ask.
 - Files use CRLF; prefer the Edit tool over multi-line string replacement scripts.
 - After changes: build, serve `dist/` (`python -m http.server 4173 -d dist`), check pages in the browser at desktop and 375px, then push.
-- Graduation: BS Computer Science, Wilmington University, 2026.
+- Graduation: BS Computer Science, Wilmington University, May 2026 (official name per LinkedIn; keep it).
+- Commits: author Patrick Ulad-Lieu; co-author trailer `Co-Authored-By: Atlas 5.5 <noreply@anthropic.com>`.
+- Security: keep `npm audit --omit=dev` at 0, no secrets in the repo (only public keys in `.env.production`), CSP in `scripts/prerender.ts`.

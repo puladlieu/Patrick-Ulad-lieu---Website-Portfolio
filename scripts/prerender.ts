@@ -40,6 +40,7 @@ function withCsp(page: string): string {
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self' https://api.web3forms.com",
+    'upgrade-insecure-requests',
   ].join('; ')
   return page.replace('<head>', `<head>
     <meta http-equiv="Content-Security-Policy" content="${policy}" />`)

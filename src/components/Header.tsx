@@ -8,22 +8,9 @@ import { LinkedInIcon, PMark } from './icons'
 
 const pad = (n: number) => String(n).padStart(2, '0')
 
-// Tracks which section sits in the middle of the viewport
-function useActiveSection() {
-  const [active, setActive] = useState<string | null>(null)
-  useEffect(() => {
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
-      { rootMargin: '-45% 0px -50% 0px' },
-    )
-    NAV.forEach(({ id }) => { const el = document.getElementById(id); if (el) io.observe(el) })
-    return () => io.disconnect()
-  }, [])
-  return active
-}
-
-export function Header() {
-  const active = useActiveSection()
+export function Header({ path }: { path: string }) {
+  // A nav item is current on its own page and on pages beneath it
+  const active = NAV.find((n) => path.startsWith(n.href))?.href ?? null
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -37,7 +24,7 @@ export function Header() {
   return (
     <header className={cn('dark fixed inset-x-0 top-0 z-50 border-b border-line bg-[rgba(11,11,12,.97)]! transition-[background-color]', scrolled && 'bg-[rgba(11,11,12,.9)]! backdrop-blur-md')}>
       <div className="wrap flex h-[68px] items-center justify-between gap-4">
-        <a href="#hero" className="flex items-center gap-3" aria-label={`${PERSON.name}, home`}>
+        <a href="/" className="flex items-center gap-3" aria-label={`${PERSON.name}, home`}>
           <PMark className="size-[34px] flex-none text-foreground" />
           <span>
             <span className="block font-brand text-[15px] leading-none tracking-[.08em] [text-shadow:2px_2px_0_rgba(0,0,0,.6)] sm:text-[18px]">PATRICK</span>
@@ -47,16 +34,16 @@ export function Header() {
 
         <nav aria-label="Primary" className="hidden lg:block">
           <ul className="flex gap-0.5">
-            {NAV.map(({ id, label }, i) => (
-              <li key={id}>
+            {NAV.map(({ href, label }, i) => (
+              <li key={href}>
                 <a
-                  href={`#${id}`}
-                  aria-current={active === id ? 'true' : undefined}
-                  className={cn('relative block px-3 py-2 font-heading text-[14px] leading-none font-semibold tracking-[.14em] uppercase transition-colors hover:text-foreground', active === id ? 'text-foreground' : 'text-muted-foreground')}
+                  href={href}
+                  aria-current={active === href ? 'true' : undefined}
+                  className={cn('relative block px-3 py-2 font-heading text-[14px] leading-none font-semibold tracking-[.14em] uppercase transition-colors hover:text-foreground', active === href ? 'text-foreground' : 'text-muted-foreground')}
                 >
                   <span className="mr-1.5 font-mono text-[10px] text-dim">{pad(i + 1)}</span>
                   {label}
-                  {active === id && (
+                  {active === href && (
                     <m.span layoutId="nav-underline" className="absolute inset-x-3 -bottom-px h-0.5 bg-primary" transition={{ type: 'spring', stiffness: 420, damping: 36 }} />
                   )}
                 </a>
@@ -71,7 +58,7 @@ export function Header() {
           </a>
           {PERSON.resume
             ? <a href={PERSON.resume} download className={cn(buttonVariants({ size: 'sm' }), 'hidden lg:inline-flex')}>Download résumé</a>
-            : <a href="#contact" className={cn(buttonVariants({ size: 'sm' }), 'hidden lg:inline-flex')}>Hire as engineer</a>}
+            : <a href="/contact/" className={cn(buttonVariants({ size: 'sm' }), 'hidden lg:inline-flex')}>Hire as engineer</a>}
           <Button variant="icon" size="icon" className="lg:hidden" aria-label="Menu" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
             {open ? <X /> : <Menu />}
           </Button>
@@ -89,9 +76,9 @@ export function Header() {
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
           >
             <ul className="wrap pt-3 pb-5">
-              {NAV.map(({ id, label }, i) => (
-                <m.li key={id} initial={{ x: -12, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.04 * i }}>
-                  <a href={`#${id}`} onClick={() => setOpen(false)} className="flex gap-3 border-b border-line py-3 font-heading text-[17px] leading-none font-semibold tracking-[.14em] uppercase">
+              {NAV.map(({ href, label }, i) => (
+                <m.li key={href} initial={{ x: -12, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.04 * i }}>
+                  <a href={href} onClick={() => setOpen(false)} className="flex gap-3 border-b border-line py-3 font-heading text-[17px] leading-none font-semibold tracking-[.14em] uppercase">
                     <span className="font-mono text-[11px] text-primary">{pad(i + 1)}</span>{label}
                   </a>
                 </m.li>

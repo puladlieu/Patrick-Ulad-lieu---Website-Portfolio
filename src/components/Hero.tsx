@@ -124,10 +124,10 @@ export function Hero() {
               <span className="label">Work style <b className="font-normal text-foreground">{PERSON.workStyle}</b></span>
             </div>
             <div className={cn('mt-[34px] flex flex-wrap gap-3', enter, 'delay-500')}>
-              <a href="#experience" className={cn(buttonVariants(), 'group')}>
+              <a href="/experience/" className={cn(buttonVariants(), 'group')}>
                 View experience <ArrowRight className="transition-transform group-hover:translate-x-1" />
               </a>
-              <a href="#contact" className={buttonVariants({ variant: 'outline' })}>Get in touch</a>
+              <a href="/contact/" className={buttonVariants({ variant: 'outline' })}>Get in touch</a>
               {PERSON.resume && (
                 <a href={PERSON.resume} download className={cn(buttonVariants({ variant: 'outline' }), 'group')}>
                   Résumé <FileDown className="transition-transform group-hover:translate-y-0.5" />

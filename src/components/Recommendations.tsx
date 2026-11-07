@@ -39,9 +39,9 @@ function Rec({ r, i }: { r: (typeof RECS)[number]; i: number }) {
 
 export function Recommendations() {
   return (
-    <section id="recommendations" className="dark hex-bg-dark relative py-20 sm:py-[110px]" aria-labelledby="recommendations-title">
+    <section id="recommendations" className="dark hex-bg-dark relative py-20 pt-[120px] sm:py-[110px] sm:pt-[150px]" aria-labelledby="recommendations-title">
       <div className="wrap relative">
-        <SectionHead id="recommendations" num="06" eyebrow="Testimonials" title="Recommendations" desc="What managers, colleagues, and mentees say about working with me." />
+        <SectionHead h1 id="recommendations" num="05" eyebrow="Testimonials" title="Recommendations" desc="What managers, colleagues, and mentees say about working with me." />
         <StaggerGroup className="grid items-start gap-4 lg:grid-cols-3">
           {RECS.map((r, i) => <Rec key={r.author} r={r} i={i} />)}
         </StaggerGroup>

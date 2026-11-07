@@ -16,9 +16,9 @@ const FIRST_HONORS = 4
 export function Credentials() {
   const [allHonors, setAllHonors] = useState(false)
   return (
-    <section id="credentials" className="py-20 sm:py-[110px]" aria-labelledby="credentials-title">
+    <section id="credentials" className="py-20 pt-[120px] sm:py-[110px] sm:pt-[150px]" aria-labelledby="credentials-title">
       <div className="wrap">
-        <SectionHead id="credentials" num="05" eyebrow="Education" title="Education & credentials" desc="Computer science degrees and coursework, plus certifications, scholarships, and awards." />
+        <SectionHead h1 id="credentials" num="04" eyebrow="Education" title="Education & credentials" desc="Computer science degrees and coursework, plus certifications, scholarships, and awards." />
 
         <StaggerGroup className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {EDUCATION.map((ed, i) => (

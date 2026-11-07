@@ -34,7 +34,7 @@
       (function () {
         var d = document.documentElement; d.classList.add('js');
         try {
-          if (sessionStorage.getItem('booted') !== '1' && !matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('booting');
+          if (location.pathname === '/' && sessionStorage.getItem('booted') !== '1' && !matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('booting');
         } catch (e) {}
       })();
     </script>

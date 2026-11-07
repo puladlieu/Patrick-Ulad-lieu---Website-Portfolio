@@ -24,13 +24,12 @@ export const PERSON = {
 }
 
 export const NAV = [
-  { id: 'stack', label: 'Stack' },
-  { id: 'pillars', label: 'Pillars' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'credentials', label: 'Credentials' },
-  { id: 'recommendations', label: 'Testimonials' },
-  { id: 'contact', label: 'Contact' },
+  { href: '/skills/', label: 'Skills' },
+  { href: '/projects/', label: 'Projects' },
+  { href: '/experience/', label: 'Experience' },
+  { href: '/education/', label: 'Education' },
+  { href: '/recommendations/', label: 'Testimonials' },
+  { href: '/contact/', label: 'Contact' },
 ] as const
 
 export const TICKER: [string, string][] = [
@@ -71,10 +70,10 @@ export const PILLARS: { title: string; icon: IconName; description: string; skil
 
 // Case studies. Every fact here comes from Patrick's LinkedIn; keep it that way when editing.
 export const PROJECTS: {
-  title: string; org: string; period: string; icon: IconName
+  slug: string; title: string; org: string; period: string; icon: IconName
   metrics: [string, string][]; problem: string; built: string[]; outcome: string; tech: string[]
 }[] = [
-  { title: 'Hardware lifecycle forecasting', org: 'City of Philadelphia · OIT', period: '2023 – Present', icon: 'chart',
+  { slug: 'hardware-lifecycle-forecasting', title: 'Hardware lifecycle forecasting', org: 'City of Philadelphia · OIT', period: '2023 – Present', icon: 'chart',
     metrics: [['30,000+', 'employees covered'], ['40+', 'departments'], ['5,000+', 'high-risk assets flagged']],
     problem: 'Laptop replacements were handled reactively. Warranty and asset data was fragmented, so the City could not see expirations or procurement demand coming.',
     built: [
@@ -85,7 +84,7 @@ export const PROJECTS: {
     ],
     outcome: 'Moved City-wide planning from reactive hardware support to proactive, data-driven forecasting, giving leadership a budget and refresh plan years ahead.',
     tech: ['Excel / VBA', 'Forecasting', 'Data Modeling', 'Data Cleaning', 'AI-Assisted Development'] },
-  { title: 'TeamDynamix asset migration', org: 'City of Philadelphia · OIT', period: '2023 – Present', icon: 'layers',
+  { slug: 'teamdynamix-asset-migration', title: 'TeamDynamix asset migration', org: 'City of Philadelphia · OIT', period: '2023 – Present', icon: 'layers',
     metrics: [['100,000+', 'assets imported'], ['1,000+', 'fields unified'], ['+25%', 'tracking accuracy']],
     problem: 'IT asset tracking lived in static Excel sheets, with inconsistent naming and recurring data-entry errors.',
     built: [
@@ -95,7 +94,7 @@ export const PROJECTS: {
     ],
     outcome: 'Asset-tracking accuracy improved by about 25% and recurring data-entry errors dropped by 30%.',
     tech: ['TeamDynamix', 'ETL', 'Data Validation', 'OSINT', 'Excel Automation'] },
-  { title: 'Windows 11 readiness reporting', org: 'City of Philadelphia · OIT', period: '2023 – 2024', icon: 'terminal',
+  { slug: 'windows-11-readiness-reporting', title: 'Windows 11 readiness reporting', org: 'City of Philadelphia · OIT', period: '2023 – 2024', icon: 'terminal',
     metrics: [['14,000+', 'assets analyzed'], ['Weekly', 'leadership reports']],
     problem: 'Senior IT leadership needed to know which City devices could move to Windows 11 and what had to be replaced.',
     built: [

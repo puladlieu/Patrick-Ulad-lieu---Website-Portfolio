@@ -63,12 +63,12 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="pb-20 sm:pb-[110px]" aria-labelledby="contact-title">
+    <section id="contact" className="pb-20 pt-[120px] sm:pb-[110px] sm:pt-[150px]" aria-labelledby="contact-title">
       <div className="wrap">
         <Reveal className="dark panel cut grid overflow-hidden min-[900px]:grid-cols-[1fr_1.1fr]">
           <div className="border-b border-line bg-[linear-gradient(160deg,transparent_55%,var(--red-dim))] px-5 py-7 sm:p-11 min-[900px]:border-r min-[900px]:border-b-0">
-            <div className="label text-primary!">07 // Contact</div>
-            <h2 id="contact-title" className="mt-4 font-brand text-[clamp(28px,3.4vw,44px)] leading-[1.12] uppercase">Let's work<br />together.</h2>
+            <div className="label text-primary!">06 // Contact</div>
+            <h1 id="contact-title" className="mt-4 font-brand text-[clamp(28px,3.4vw,44px)] leading-[1.12] uppercase">Let's work<br />together.</h1>
             <p className="mt-[18px] max-w-[420px] text-muted-foreground">
               Hiring for a software engineering role, need a data pipeline automated, or looking for a technical advisor? Send a message and I'll get back to you.
             </p>

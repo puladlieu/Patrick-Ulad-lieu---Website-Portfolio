@@ -1,15 +1,23 @@
 import { StrictMode } from 'react'
 import { renderToString } from 'react-dom/server'
 import App from './App.tsx'
+import { PAGES } from './pages'
 import { CERTS, EDUCATION, EXPERIENCE, PERSON, STACK } from './data/profile'
 
 // Used at build time by scripts/prerender.ts
-export function render() {
-  return renderToString(<StrictMode><App /></StrictMode>)
+export function render(path: string) {
+  return renderToString(<StrictMode><App path={path} /></StrictMode>)
+}
+
+// Everything the build needs to write one HTML file per URL
+export function pages() {
+  return PAGES.map(({ path, title, description, priority, parent, nav }) => ({ path, title, description, priority, parent, nav }))
 }
 
 // schema.org data so search engines understand who this page is about
-export function structuredData(siteUrl: string) {
+export function structuredData(siteUrl: string, path = '/') {
+  const page = PAGES.find((x) => x.path === path)!
+  if (path !== '/') return pageData(siteUrl, page)
   const current = EXPERIENCE.filter((x) => x.active)
   const orgs = [...new Set(current.map((x) => x.org.replace(/ — .*/, '')))]
   return {
@@ -51,6 +59,32 @@ export function structuredData(siteUrl: string) {
         url: `${siteUrl}/`,
         name: PERSON.name,
         publisher: { '@id': `${siteUrl}/#person` },
+      },
+    ],
+  }
+}
+
+// Smaller graph for inner pages: the page, its place in the site, and a link back to the person
+function pageData(siteUrl: string, page: (typeof PAGES)[number]) {
+  const crumbs = [{ name: 'Home', path: '/' }, ...(page.parent ? [{ name: PAGES.find((x) => x.path === page.parent)!.nav, path: page.parent }] : []), { name: page.nav, path: page.path }]
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        '@id': `${siteUrl}${page.path}#webpage`,
+        url: `${siteUrl}${page.path}`,
+        name: page.title,
+        description: page.description,
+        inLanguage: 'en-US',
+        isPartOf: { '@id': `${siteUrl}/#website` },
+        about: { '@id': `${siteUrl}/#person` },
+        breadcrumb: { '@id': `${siteUrl}${page.path}#breadcrumb` },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${siteUrl}${page.path}#breadcrumb`,
+        itemListElement: crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: `${siteUrl}${c.path}` })),
       },
     ],
   }

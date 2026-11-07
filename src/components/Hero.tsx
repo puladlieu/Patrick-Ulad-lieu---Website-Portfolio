@@ -58,7 +58,7 @@ function IdCard() {
         </ul>
       </div>
       <div className="flex items-center justify-between gap-3.5 border-t border-dashed border-line-2 px-[18px] py-3.5">
-        <div className="flex items-center gap-2 font-mono text-[11px] leading-snug tracking-[.14em] uppercase"><span className="status-dot" />Available · Remote OK</div>
+        <div className="flex items-center gap-2 font-mono text-[11px] leading-snug tracking-[.14em] uppercase"><span className="status-dot" />Available</div>
         {/* Real QR code: scanning it with a phone opens the LinkedIn profile; clicking it does the same */}
         <a
           href={PERSON.linkedin}

@@ -96,6 +96,7 @@ Allow: /
 
 Sitemap: ${siteUrl}/sitemap.xml
 `)
+writeFileSync(resolve(dist, 'llms.txt'), server.llmsText(siteUrl))
 
 rmSync(resolve(root, 'dist-ssr'), { recursive: true, force: true })
 console.log(`Pre-rendered ${pages.length} pages (${totalKb.toFixed(1)} KB of HTML) for ${siteUrl}`)

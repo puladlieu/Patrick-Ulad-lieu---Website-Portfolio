@@ -182,9 +182,6 @@
     .red-word { text-shadow: 3px 3px 0 var(--red-deep); }
   }
 
-  .barcode {
-    background: repeating-linear-gradient(90deg, var(--foreground) 0 2px, transparent 2px 4px, var(--foreground) 4px 5px, transparent 5px 8px, var(--foreground) 8px 11px, transparent 11px 12px, var(--foreground) 12px 13px, transparent 13px 16px);
-  }
   .id-photo { background: var(--background) linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 100% 12px; }
   .ghost-num { color: var(--ghost); }
 

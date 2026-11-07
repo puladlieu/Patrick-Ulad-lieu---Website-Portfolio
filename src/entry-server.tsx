@@ -2,7 +2,42 @@ import { StrictMode } from 'react'
 import { renderToString } from 'react-dom/server'
 import App from './App.tsx'
 import { ogImage, PAGES } from './pages'
-import { CERTS, EDUCATION, EXPERIENCE, PERSON, STACK } from './data/profile'
+import { CERTS, EDUCATION, EXPERIENCE, PERSON, PROJECTS, STACK } from './data/profile'
+
+// /llms.txt: a plain-text profile AI assistants (ChatGPT, Gemini, Claude, Perplexity) can read in one request.
+// Built from the same data as the site, so it never drifts. Format: https://llmstxt.org
+export function llmsText(siteUrl: string) {
+  const nl = String.fromCharCode(10)
+  const lines: string[] = [
+    `# ${PERSON.name}`,
+    '',
+    `> ${PERSON.headline} based in ${PERSON.location}. ${PERSON.status}. Work style: ${PERSON.workStyle}.`,
+    '',
+    PERSON.summary,
+    '',
+    `Contact: ${PERSON.email} · LinkedIn: ${PERSON.linkedin} · Site: ${siteUrl}/`,
+    '',
+    '## Experience',
+    ...EXPERIENCE.map((x) => `- ${x.role}, ${x.org} (${x.period})${x.active ? ' [current]' : ''}: ${x.bullets[0]}`),
+    '',
+    '## Case studies',
+    ...PROJECTS.map((p) => `- [${p.title}](${siteUrl}/projects/${p.slug}/): ${p.outcome}`),
+    '',
+    '## Education',
+    ...EDUCATION.map((e) => `- ${e.degree}, ${e.institution} (${e.year})`),
+    '',
+    '## Skills',
+    ...STACK.map((s) => `- ${s.title}: ${s.items.join(', ')}`),
+    '',
+    '## Certifications',
+    ...CERTS.map((c) => `- ${c.title} (${c.issuer})`),
+    '',
+    '## Pages',
+    ...PAGES.map((p) => `- [${p.title}](${siteUrl}${p.path}): ${p.description}`),
+    '',
+  ]
+  return lines.join(nl)
+}
 
 // Used at build time by scripts/prerender.ts
 export function render(path: string) {

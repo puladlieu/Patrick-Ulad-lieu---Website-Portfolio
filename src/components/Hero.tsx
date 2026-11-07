@@ -59,7 +59,17 @@ function IdCard() {
       </div>
       <div className="flex items-center justify-between gap-3.5 border-t border-dashed border-line-2 px-[18px] py-3.5">
         <div className="flex items-center gap-2 font-mono text-[11px] leading-snug tracking-[.14em] uppercase"><span className="status-dot" />Available · Remote OK</div>
-        <div className="barcode h-7 w-[72px] flex-none sm:w-28" aria-hidden />
+        {/* Real QR code: scanning it with a phone opens the LinkedIn profile; clicking it does the same */}
+        <a
+          href={PERSON.linkedin}
+          target="_blank"
+          rel="noopener noreferrer me"
+          title="Scan or click to open my LinkedIn"
+          className="group flex flex-none items-center gap-2.5 transition-opacity hover:opacity-80"
+        >
+          <span className="hidden text-right font-mono text-[10px] leading-tight tracking-[.16em] text-muted-foreground uppercase sm:block">Scan for<br /><span className="text-primary">LinkedIn</span></span>
+          <img src="/linkedin-qr.svg" alt="QR code linking to Patrick Ulad-Lieu's LinkedIn profile" width={64} height={64} className="size-14 border border-line-2 sm:size-16" />
+        </a>
       </div>
     </aside>
   )

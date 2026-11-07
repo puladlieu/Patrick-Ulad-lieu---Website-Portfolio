@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { m } from 'framer-motion'
 import { Copy, Loader2, Send } from 'lucide-react'
-import { toast } from 'sonner'
+import { toast } from '@/lib/toast'
 import { Button, buttonVariants } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'

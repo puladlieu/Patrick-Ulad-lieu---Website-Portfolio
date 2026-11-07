@@ -1,5 +1,4 @@
 import { LazyMotion, MotionConfig } from 'framer-motion'
-import { Toaster } from '@/components/ui/sonner'
 import { BootScreen } from '@/components/BootScreen'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
@@ -20,7 +19,6 @@ export default function App({ path }: { path: string }) {
         <Header path={page.path} />
         <main id="main">{page.render()}</main>
         <Footer />
-        <Toaster position="bottom-right" />
       </LazyMotion>
     </MotionConfig>
   )

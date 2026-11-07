@@ -18,7 +18,7 @@ export function useScrollRoute(enabled: boolean) {
         if (path === current) continue
         current = path
         history.replaceState(history.state, '', path)
-        const page = PAGES.find((p) => p.path === path)
+        const page = PAGES.find((p) => p.path === path.split('#')[0])
         if (page) document.title = page.title
         window.dispatchEvent(new CustomEvent(EVENT, { detail: path }))
       }

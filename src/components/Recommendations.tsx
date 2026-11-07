@@ -41,7 +41,7 @@ export function Recommendations({ page = false }: { page?: boolean }) {
   return (
     <section id="recommendations" className={cn("dark hex-bg-dark relative py-20 sm:py-[110px]", page && 'pt-[120px] sm:pt-[150px]')} aria-labelledby="recommendations-title">
       <div className="wrap relative">
-        <SectionHead h1={page} id="recommendations" num="05" eyebrow="Testimonials" title="Recommendations" desc="What managers, colleagues, and mentees say about working with me." />
+        <SectionHead h1={page} id="recommendations" num="06" eyebrow="Testimonials" title="Recommendations" desc="What managers, colleagues, and mentees say about working with me." />
         <StaggerGroup className="grid items-start gap-4 lg:grid-cols-3">
           {RECS.map((r, i) => <Rec key={r.author} r={r} i={i} />)}
         </StaggerGroup>

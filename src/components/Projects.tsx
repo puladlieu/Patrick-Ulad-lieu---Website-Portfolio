@@ -13,7 +13,7 @@ const pad = (n: number) => String(n).padStart(2, '0')
 
 type Project = (typeof PROJECTS)[number]
 
-function ProjectArticle({ p, i }: { p: Project; i: number }) {
+function ProjectArticle({ p, i, titleTag: Title = 'h1', link = false }: { p: Project; i: number; titleTag?: 'h1' | 'h2' | 'h3'; link?: boolean }) {
   return (
     <m.article data-reveal variants={fadeUp} className="panel cut grid overflow-hidden lg:grid-cols-[320px_1fr]" aria-labelledby={`project-${i}`}>
                   {/* Metrics rail */}
@@ -36,7 +36,7 @@ function ProjectArticle({ p, i }: { p: Project; i: number }) {
     
                   {/* Story */}
                   <div className="p-6 sm:p-8">
-                    <h1 id={`project-${i}`} className="font-heading text-[28px] leading-[1.05] font-bold tracking-[.03em] uppercase">{p.title}</h1>
+                    <Title id={`project-${i}`} className="font-heading text-[28px] leading-[1.05] font-bold tracking-[.03em] uppercase">{p.title}</Title>
                     <div className="mt-5 grid gap-5 md:grid-cols-[150px_1fr]">
                       <div className="label pt-0.5 text-primary!">The problem</div>
                       <p className="text-text-2">{p.problem}</p>
@@ -52,6 +52,11 @@ function ProjectArticle({ p, i }: { p: Project; i: number }) {
                     <ul className="mt-6 flex flex-wrap gap-2 border-t border-dashed border-line-2 pt-4">
                       {p.tech.map((t) => <li key={t}><Badge>{t}</Badge></li>)}
                     </ul>
+                    {link && (
+                      <a href={`/projects/${p.slug}/`} className="mt-5 inline-flex items-center gap-2 font-heading text-base font-semibold tracking-[.12em] text-primary uppercase hover:underline">
+                        Full case study & Q&A <ArrowRight className="size-4" />
+                      </a>
+                    )}
                   </div>
                 </m.article>
   )
@@ -112,36 +117,12 @@ export function ProjectDetail({ slug }: { slug: string }) {
 }
 
 export function Projects({ page = false }: { page?: boolean }) {
-  const CardTitle = page ? 'h2' : 'h3'
   return (
-    // Card titles sit under the section heading: h2 on the projects page, h3 on the home page
     <section id="projects" className={cn('py-20 sm:py-[110px]', page && 'pt-[120px] sm:pt-[150px]')} aria-labelledby="projects-title">
       <div className="wrap">
-        <SectionHead h1={page} id="projects" num="02" eyebrow="Case studies" title="Selected projects" desc="What I built, why it was needed, and what changed because of it. Each project has its own write-up." />
-        <StaggerGroup gap={0.12} className="grid gap-5 lg:grid-cols-3">
-          {PROJECTS.map((p, i) => (
-            <m.article key={p.slug} data-reveal variants={fadeUp} className="panel cut flex flex-col p-6 sm:p-8">
-              <div className="flex items-center justify-between">
-                <HexIcon name={p.icon} />
-                <span className="font-brand text-[44px] leading-none text-foreground/10">{pad(i + 1)}</span>
-              </div>
-              <CardTitle className="mt-5 font-heading text-[26px] leading-[1.05] font-bold tracking-[.03em] uppercase">{p.title}</CardTitle>
-              <div className="label mt-2">{p.org} · {p.period}</div>
-              <dl className="mt-5 grid gap-3">
-                {p.metrics.map(([v, k]) => (
-                  <div key={k} className="border-l-2 border-primary pl-3.5">
-                    <dt className="sr-only">{k}</dt>
-                    <dd className="font-brand text-[22px] leading-none">{v}</dd>
-                    <div aria-hidden className="mt-1.5 font-mono text-[11px] tracking-[.14em] text-muted-foreground uppercase">{k}</div>
-                  </div>
-                ))}
-              </dl>
-              <p className="mt-5 flex-1 text-text-2">{p.problem}</p>
-              <a href={`/projects/${p.slug}/`} className="mt-6 inline-flex items-center gap-2 font-heading text-base font-semibold tracking-[.12em] text-primary uppercase hover:underline">
-                Read the case study <ArrowRight className="size-4" />
-              </a>
-            </m.article>
-          ))}
+        <SectionHead h1={page} id="projects" num="03" eyebrow="Case studies" title="Selected projects" desc="What I built, why it was needed, and what changed because of it." />
+        <StaggerGroup gap={0.12} className="grid gap-5">
+          {PROJECTS.map((p, i) => <ProjectArticle key={p.slug} p={p} i={i} titleTag={page ? 'h2' : 'h3'} link />)}
         </StaggerGroup>
       </div>
     </section>

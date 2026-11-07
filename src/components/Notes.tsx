@@ -13,7 +13,7 @@ export function Notes({ page = false }: { page?: boolean }) {
   return (
     <section id="notes" className={cn('py-20 sm:py-[110px]', page && 'pt-[120px] sm:pt-[150px]')} aria-labelledby="notes-title">
       <div className="wrap">
-        <SectionHead h1={page} id="notes" num="06" eyebrow="Writing" title="Notes" desc="Practical write-ups on forecasting, data migration, and automation, drawn from real projects." />
+        <SectionHead h1={page} id="notes" num="07" eyebrow="Writing" title="Notes" desc="Practical write-ups on forecasting, data migration, and automation, drawn from real projects." />
         <Reveal className="grid gap-4 lg:grid-cols-2">
           {NOTES.map((n) => (
             <a key={n.slug} href={`/notes/${n.slug}/`} className="panel cut group flex flex-col p-6 transition-colors hover:text-primary sm:p-8">

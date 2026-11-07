@@ -3,6 +3,7 @@
 Personal portfolio for Patrick Ulad-Lieu. React 19 + Vite + Tailwind 4, pre-rendered to static HTML.
 
 ## Where things live
+- Design: the original one-page look (tabbed Skills/Experience, open role cards, numbered sections 01–08) at full width. Keep it unless asked.
 - All content (jobs, projects, skills, schools, notes): `src/data/profile.ts` and `src/data/notes.ts`. Edit data, not components.
 - Every URL is an entry in `src/pages.tsx` (title, description, sitemap priority). Add a page there and the build writes its HTML, sitemap entry and structured data.
 - Build: `npm run build` → `scripts/prerender.ts` writes `dist/<path>/index.html` per page, `sitemap.xml`, `robots.txt`, and a CSP meta tag (hashes the inline boot script in `index.html`).

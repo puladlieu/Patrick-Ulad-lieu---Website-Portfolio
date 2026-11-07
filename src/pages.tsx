@@ -116,7 +116,8 @@ export const PAGES: PageDef[] = [
 function Home() {
   return (
     <>
-      <div data-path="/"><Hero /><Pillars /></div>
+      <div data-path="/"><Hero /></div>
+      <div data-path="/#pillars"><Pillars /></div>
       <div data-path="/skills/"><Stack /></div>
       <div data-path="/projects/"><Projects /></div>
       <div data-path="/experience/"><Experience /></div>

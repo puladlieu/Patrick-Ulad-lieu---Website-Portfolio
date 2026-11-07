@@ -11,7 +11,7 @@ export function Pillars() {
   return (
     <section id="pillars" className="dark hex-bg-dark relative py-20 sm:py-[110px]" aria-labelledby="pillars-title">
       <div className="wrap relative">
-        <SectionHead id="pillars" num="" eyebrow="Core strengths" title="Engineering pillars" desc="Four disciplines that compound: write the software, feed it clean data, automate the workflow, and connect it to real hardware." />
+        <SectionHead id="pillars" num="02" eyebrow="Core strengths" title="Engineering pillars" desc="Four disciplines that compound: write the software, feed it clean data, automate the workflow, and connect it to real hardware." />
         <StaggerGroup className="grid gap-4 md:grid-cols-2">
           {PILLARS.map((p, i) => (
             <m.article

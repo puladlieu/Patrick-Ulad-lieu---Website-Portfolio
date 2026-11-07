@@ -24,10 +24,11 @@ export const PERSON = {
 }
 
 export const NAV = [
-  { href: '/skills/', label: 'Skills' },
+  { href: '/skills/', label: 'Stack' },
+  { href: '/#pillars', label: 'Pillars' },
   { href: '/projects/', label: 'Projects' },
   { href: '/experience/', label: 'Experience' },
-  { href: '/education/', label: 'Education' },
+  { href: '/education/', label: 'Credentials' },
   { href: '/recommendations/', label: 'Testimonials' },
   { href: '/notes/', label: 'Notes' },
   { href: '/contact/', label: 'Contact' },

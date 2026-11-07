@@ -41,12 +41,12 @@ export function Header({ path }: { path: string }) {
                 <a
                   href={href}
                   aria-current={active === href ? 'true' : undefined}
-                  className={cn('relative block px-3 py-2 font-heading text-[14px] leading-none font-semibold tracking-[.14em] uppercase transition-colors hover:text-foreground', active === href ? 'text-foreground' : 'text-muted-foreground')}
+                  className={cn('relative block px-2 py-2 font-heading text-[13px] 2xl:px-3 2xl:text-[14px] leading-none font-semibold tracking-[.14em] uppercase transition-colors hover:text-foreground', active === href ? 'text-foreground' : 'text-muted-foreground')}
                 >
                   <span className="mr-1.5 font-mono text-[10px] text-dim">{pad(i + 1)}</span>
                   {label}
                   {active === href && (
-                    <m.span layoutId="nav-underline" className="absolute inset-x-3 -bottom-px h-0.5 bg-primary" transition={{ type: 'spring', stiffness: 420, damping: 36 }} />
+                    <m.span layoutId="nav-underline" className="absolute inset-x-2 -bottom-px 2xl:inset-x-3 h-0.5 bg-primary" transition={{ type: 'spring', stiffness: 420, damping: 36 }} />
                   )}
                 </a>
               </li>

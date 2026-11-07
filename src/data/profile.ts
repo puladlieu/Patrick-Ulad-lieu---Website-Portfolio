@@ -12,6 +12,9 @@ export const PERSON = {
   region: 'PA',
   email: 'puladlieu@gmail.com',
   linkedin: 'https://www.linkedin.com/in/patrickuladlieu/',
+  github: 'https://github.com/puladlieu',
+  // Public source code of this site, so reviewers can read real code
+  source: 'https://github.com/puladlieu/Patrick-Ulad-lieu---Website-Portfolio',
   workStyle: 'Remote / Hybrid / On-site',
   status: 'Open to full-time software engineering & tech advisory roles · Remote or on-site',  summary:
     'Full-stack development, data pipelines & analytics automation, and systems integration. I build the software that turns fragmented data and manual work into dependable, automated systems, from a hardware forecast covering 30,000 City employees to precision laser control routines.',
@@ -184,12 +187,13 @@ export const EXPERIENCE: Role[] = [
     bullets: [
       'Design and 3D print STL prototypes for a defense training academy on a Bambu Lab P1S CoreXY system.',
       'Built xTool S1 40W laser workflows to restore markings on Cerakote-coated components, and train personnel on vector design, jig alignment, and material tuning.',
+      'Qualify other members on Class IV laser operation.',
       'Support community cybersecurity research and rapid prototyping; pursuing the FAA Part 107 Small UAS certification.',
     ], tech: ['xTool S1', 'Bambu Lab P1S', 'STL/CAD', 'Additive Manufacturing'] },
   { role: 'Member & Forum Moderator', org: 'YPO',
     period: 'Oct 2024 – Present', start: '2024-10', active: true, tags: ['leadership'],
     bullets: [
-      'Facilitate monthly confidential peer forums for leaders in a global community of 35,000+ chief executives.',
+      'Facilitate monthly forums that build trust, open dialogue, and actionable insights among members.',
       'Introduced structured, flexible agendas that support open dialogue and mutual accountability.',
     ], tech: ['Facilitation', 'Leadership'] },
   { role: 'Mayor Transition Ops', org: 'Office of Innovation & Technology — City of Philadelphia',
@@ -222,8 +226,8 @@ export const EXPERIENCE: Role[] = [
 ]
 
 export const EDUCATION = [
-  { degree: 'Bachelor of Science in Computer Science', short: 'BS', institution: 'Wilmington University', year: 'Sep 2024 – 2026',
-    details: 'Graduated in 2026.', listLabel: 'Coursework',
+  { degree: 'Bachelor of Science in Computer Science', short: 'BS', institution: 'Wilmington University', year: 'Sep 2024 – May 2026',
+    details: 'Graduated May 2026.', listLabel: 'Coursework',
     list: ['Java Programming II', 'JavaScript I', 'Systems Analysis & Design', 'User-Centered Design', 'Web Design & Development', 'Data Visualization', 'Fundamentals in Cybersecurity', 'Networks & Telecomms', 'Programming with Python', 'Computer Hardware & Operation', 'Experiential Learning in CSC'] },
   { degree: 'Associate of Science in Computer Science', short: 'AS', institution: 'Community College of Philadelphia', year: '2021 – 2024',
     details: 'Octavius Catto Scholar and Ambassador; Center for Male Engagement (CME).', listLabel: 'Coursework',

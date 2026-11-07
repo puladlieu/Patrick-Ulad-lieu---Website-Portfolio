@@ -89,7 +89,10 @@ export function Contact({ page = false }: { page?: boolean }) {
               </div>
               <div className="flex flex-wrap items-center justify-between gap-3 bg-card px-4 py-3.5">
                 <span className="label">Profile</span>
-                <a href={PERSON.linkedin} target="_blank" rel="noopener noreferrer me" className={buttonVariants({ variant: 'mini', size: 'mini' })}>LinkedIn</a>
+                <span className="flex flex-wrap gap-2">
+                  <a href={PERSON.linkedin} target="_blank" rel="noopener noreferrer me" className={buttonVariants({ variant: 'mini', size: 'mini' })}>LinkedIn</a>
+                  <a href={PERSON.github} target="_blank" rel="noopener noreferrer me" className={buttonVariants({ variant: 'mini', size: 'mini' })}>GitHub</a>
+                </span>
               </div>
             </address>
           </div>

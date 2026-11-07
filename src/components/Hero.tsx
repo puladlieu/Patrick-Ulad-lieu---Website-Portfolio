@@ -139,6 +139,7 @@ export function Hero() {
                 View experience <ArrowRight className="transition-transform group-hover:translate-x-1" />
               </a>
               <a href="/contact/" className={buttonVariants({ variant: 'outline' })}>Get in touch</a>
+              <a href={PERSON.github} target="_blank" rel="noopener noreferrer me" className={buttonVariants({ variant: 'outline' })}>GitHub</a>
               {PERSON.resume && (
                 <a href={PERSON.resume} download className={cn(buttonVariants({ variant: 'outline' }), 'group')}>
                   Résumé <FileDown className="transition-transform group-hover:translate-y-0.5" />

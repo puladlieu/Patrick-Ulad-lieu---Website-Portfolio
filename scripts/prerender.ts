@@ -91,11 +91,14 @@ writeFileSync(resolve(dist, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8
 ${urls}
 </urlset>
 `)
-writeFileSync(resolve(dist, 'robots.txt'), `User-agent: *
-Allow: /
-
-Sitemap: ${siteUrl}/sitemap.xml
-`)
+// Search engines and AI assistants are explicitly welcome: the point of this site is to be found.
+const aiBots = ['Googlebot', 'Bingbot', 'Google-Extended', 'GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'Claude-SearchBot', 'Claude-User', 'PerplexityBot', 'Perplexity-User', 'Applebot', 'Applebot-Extended', 'DuckAssistBot', 'meta-externalagent']
+writeFileSync(resolve(dist, 'robots.txt'), [
+  ...aiBots.flatMap((b) => [`User-agent: ${b}`, 'Allow: /', '']),
+  'User-agent: *', 'Allow: /', '',
+  `Sitemap: ${siteUrl}/sitemap.xml`,
+  `# Plain-text profile for AI assistants: ${siteUrl}/llms.txt`, '',
+].join(String.fromCharCode(10)))
 writeFileSync(resolve(dist, 'llms.txt'), server.llmsText(siteUrl))
 
 rmSync(resolve(root, 'dist-ssr'), { recursive: true, force: true })

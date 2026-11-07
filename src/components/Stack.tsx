@@ -21,6 +21,11 @@ export function Stack() {
             </Disclosure>
           ))}
         </Reveal>
+        <p className="mt-8 text-muted-foreground">
+          See these skills in use in the <a href="/projects/" className="text-primary underline">case studies</a>, the{' '}
+          <a href="/experience/" className="text-primary underline">roles they came from</a>, and the{' '}
+          <a href="/education/" className="text-primary underline">coursework behind them</a>.
+        </p>
       </div>
     </section>
   )

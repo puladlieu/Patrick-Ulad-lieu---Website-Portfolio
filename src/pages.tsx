@@ -9,6 +9,8 @@ import { Pillars } from '@/components/Pillars'
 import { ProjectDetail, Projects } from '@/components/Projects'
 import { Recommendations } from '@/components/Recommendations'
 import { Stack } from '@/components/Stack'
+import { NotePost, Notes } from '@/components/Notes'
+import { NOTES } from '@/data/notes'
 
 // One entry per real URL. The build pre-renders each into its own HTML file with its own
 // title, description, canonical link, and sitemap entry.
@@ -20,10 +22,25 @@ export type PageDef = {
   priority: number
   parent?: string
   card?: { heading: string; text: string }
+  article?: { date: string } // marks a dated article (BlogPosting structured data)
   render: () => ReactNode
 }
 
 const NAME = PERSON.name
+
+// Share image for a page: public/og-image.png for home, public/og/<path-with-dashes>.png otherwise (made by `npm run og`)
+export const ogImage = (path: string) => (path === '/' ? '/og-image.png' : `/og/${path.slice(1, -1).replace(/\//g, '-')}.png`)
+
+const notePages: PageDef[] = NOTES.map((n) => ({
+  path: `/notes/${n.slug}/`,
+  nav: n.title,
+  title: `${n.title} | ${NAME}`,
+  description: n.description,
+  priority: 0.6,
+  parent: '/notes/',
+  article: { date: n.date },
+  render: () => <NotePost slug={n.slug} />,
+}))
 
 const projectPages: PageDef[] = PROJECTS.map((p) => ({
   path: `/projects/${p.slug}/`,
@@ -84,6 +101,15 @@ export const PAGES: PageDef[] = [
     card: { heading: 'Testimonials', text: 'What managers, colleagues, and mentees say about working with me.' },
     render: () => <Recommendations />,
   },
+  {
+    path: '/notes/', nav: 'Notes',
+    title: `Notes on Forecasting, Data Migration & Automation — ${NAME}`,
+    description: 'Practical write-ups by Patrick Ulad-Lieu on hardware lifecycle forecasting, moving IT asset tracking off spreadsheets, and automating reporting with Excel and VBA.',
+    priority: 0.7,
+    card: { heading: 'Notes', text: 'Practical write-ups on forecasting, data migration, and automation.' },
+    render: () => <Notes />,
+  },
+  ...notePages,
   {
     path: '/contact/', nav: 'Contact',
     title: `Contact ${NAME} — Software Engineer in Philadelphia`,

@@ -1,7 +1,9 @@
 import { m } from 'framer-motion'
 import { Badge } from '@/components/ui/badge'
 import { ArrowRight } from 'lucide-react'
+import { NOTES } from '@/data/notes'
 import { PROJECTS } from '@/data/profile'
+import { roleId } from '@/lib/slug'
 import { HexIcon } from './icons'
 import { fadeUp, StaggerGroup } from './motion'
 import { SectionHead } from './SectionHead'
@@ -64,6 +66,37 @@ export function ProjectDetail({ slug }: { slug: string }) {
           <a href="/projects/" className="hover:text-primary">Projects</a> <span className="text-primary">/</span> {p.title}
         </nav>
         <ProjectArticle p={p} i={i} />
+
+        <div className="mt-8 grid gap-4 lg:grid-cols-[1fr_360px]">
+          <section aria-labelledby="faq-title" className="panel cut p-6 sm:p-8">
+            <h2 id="faq-title" className="font-heading text-[24px] leading-tight font-bold tracking-[.03em] uppercase">Questions about this project</h2>
+            <dl className="mt-5 grid gap-5">
+              {p.faq.map(([q, a]) => (
+                <div key={q} className="border-l-2 border-primary pl-4">
+                  <dt className="font-heading text-lg font-bold tracking-[.02em]">{q}</dt>
+                  <dd className="mt-1.5 text-text-2">{a}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+          <aside className="grid content-start gap-3">
+            <a href={`/experience/#${roleId(p.role)}`} className="panel cut flex items-center justify-between gap-3 p-5 hover:text-primary">
+              <span><span className="label block">Role</span><span className="font-heading text-lg font-bold tracking-[.03em] uppercase">{p.role}</span></span>
+              <ArrowRight className="size-5 flex-none" />
+            </a>
+            <a href="/skills/" className="panel cut flex items-center justify-between gap-3 p-5 hover:text-primary">
+              <span><span className="label block">Skills used</span><span className="font-heading text-lg font-bold tracking-[.03em] uppercase">Full tech stack</span></span>
+              <ArrowRight className="size-5 flex-none" />
+            </a>
+            {NOTES.filter((n) => n.project === p.slug).map((n) => (
+              <a key={n.slug} href={`/notes/${n.slug}/`} className="panel cut flex items-center justify-between gap-3 p-5 hover:text-primary">
+                <span><span className="label block">How-to note</span><span className="font-heading text-lg font-bold tracking-[.03em] uppercase">{n.title}</span></span>
+                <ArrowRight className="size-5 flex-none" />
+              </a>
+            ))}
+          </aside>
+        </div>
+
         <div className="mt-8 grid gap-3 sm:grid-cols-2">
           {PROJECTS.filter((x) => x.slug !== slug).map((x) => (
             <a key={x.slug} href={`/projects/${x.slug}/`} className="panel cut flex items-center justify-between gap-3 p-5 hover:text-primary">

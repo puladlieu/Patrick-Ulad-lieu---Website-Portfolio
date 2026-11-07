@@ -1,0 +1,79 @@
+// Notes / articles. Each one becomes its own page at /notes/<slug>/.
+// Keep claims about Patrick's own work limited to facts already in profile.ts; general how-to advice is fine.
+
+export type NoteBlock = { h?: string; p?: string; list?: string[] }
+export type Note = {
+  slug: string
+  title: string
+  description: string
+  date: string // yyyy-mm-dd
+  project?: string // related case study slug
+  tags: string[]
+  body: NoteBlock[]
+}
+
+export const NOTES: Note[] = [
+  {
+    slug: 'forecasting-hardware-refreshes-excel-vba',
+    title: 'Forecasting hardware refreshes with Excel and VBA',
+    description: 'A practical method for turning scattered warranty and asset records into a multi-year laptop refresh forecast, using tools most IT teams already have.',
+    date: '2026-11-07',
+    project: 'hardware-lifecycle-forecasting',
+    tags: ['Forecasting', 'Excel / VBA', 'IT Asset Management'],
+    body: [
+      { p: 'Most organizations replace laptops when they break or when a warranty lapses and someone notices. That works until a large batch of devices ages out in the same year and the budget was never planned for it. A forecast fixes that by showing, years ahead, how many devices each department will need to replace and when.' },
+      { p: 'You do not need a dedicated analytics platform to build one. Excel and a little VBA are enough, as long as the data underneath is clean.' },
+      { h: 'Start with one clean row per device' },
+      { p: 'Asset data usually lives in several places: a tracking system, purchase records, vendor warranty exports, and spreadsheets kept by individual teams. Before any forecasting, merge them into one table where each row is one device.' },
+      { list: [
+        'A unique key, usually the serial number, with duplicates removed.',
+        'Department or cost center, using one agreed spelling for each.',
+        'Model, purchase or in-service date, and warranty end date.',
+        'Current status, so retired and disposed devices drop out of the count.',
+      ] },
+      { p: 'Standardizing names is the slow part and the most important one. Two spellings of the same department will quietly split its forecast in half.' },
+      { h: 'Decide the replacement rule' },
+      { p: 'A forecast is only as good as the rule that says when a device should be replaced. Common choices are warranty end date, a fixed age such as four or five years, or whichever comes first. Look at past replacements to see which rule matches what actually happened, then write it down so everyone reads the forecast the same way.' },
+      { h: 'Roll it up by department and year' },
+      { p: 'Once each device has a projected replacement year, a pivot table by department and year gives the core forecast. VBA is useful for the repeatable parts: refreshing the source data, re-applying the rule, rebuilding the summaries, and exporting a report for each department so nobody has to redo it by hand.' },
+      { h: 'Flag the risk, not just the count' },
+      { p: 'Leadership needs to know where an aging device would hurt most. Marking devices that are already past the replacement rule, and grouping them for critical departments such as public safety, turns a spreadsheet into a decision tool.' },
+      { h: 'Using AI as a coding assistant' },
+      { p: 'An AI assistant is good at drafting formula and VBA syntax quickly. It works best when you have already designed the logic and can check what it writes against data you understand. The rules and the validation still have to come from you.' },
+      { p: 'For the real version of this, built for a city-wide fleet, see the case study below.' },
+    ],
+  },
+  {
+    slug: 'migrating-it-assets-from-spreadsheets',
+    title: 'Moving IT asset tracking from spreadsheets to a platform: a checklist',
+    description: 'What to settle before, during, and after importing tens of thousands of IT assets into an asset management platform, so the new system starts out accurate.',
+    date: '2026-11-07',
+    project: 'teamdynamix-asset-migration',
+    tags: ['Data Migration', 'ETL', 'IT Asset Management'],
+    body: [
+      { p: 'Spreadsheets are where most IT asset tracking starts, and where it stops scaling. Moving to a proper platform brings live updates, history, and reporting, but only if the data that goes in is trustworthy. A migration copies every existing problem unless you deal with it first.' },
+      { h: 'Before the import' },
+      { list: [
+        'Agree on naming conventions for devices, locations, and departments, and write them down.',
+        'Map every spreadsheet column to a field in the platform, and decide what happens to columns with no match.',
+        'Remove duplicates using a reliable key such as serial number.',
+        'List required fields and find the rows that are missing them.',
+      ] },
+      { h: 'Check locations against the real world' },
+      { p: 'Location fields drift: buildings get renamed, addresses are abbreviated differently, and some sites close. Checking them against public records and maps before import catches errors that would otherwise send technicians to the wrong place.' },
+      { h: 'During the import' },
+      { list: [
+        'Import a small batch first and confirm it looks right in the platform.',
+        'Reconcile counts after each batch: rows in, records created, rows rejected.',
+        'Keep a log of every rejected row and why, then fix the source and re-import.',
+      ] },
+      { h: 'After the import' },
+      { list: [
+        'Set up the sync or integration that keeps the platform current, so it does not become a new stale spreadsheet.',
+        'Add validation rules so new entries follow the same conventions.',
+        'Measure accuracy and recurring entry errors before and after, so you can show the migration paid off.',
+      ] },
+      { p: 'For a real migration at city scale, including the before-and-after numbers, see the case study below.' },
+    ],
+  },
+]

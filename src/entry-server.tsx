@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import { renderToString } from 'react-dom/server'
 import App from './App.tsx'
-import { PAGES } from './pages'
+import { ogImage, PAGES } from './pages'
 import { CERTS, EDUCATION, EXPERIENCE, PERSON, STACK } from './data/profile'
 
 // Used at build time by scripts/prerender.ts
@@ -11,7 +11,7 @@ export function render(path: string) {
 
 // Everything the build needs to write one HTML file per URL
 export function pages() {
-  return PAGES.map(({ path, title, description, priority, parent, nav }) => ({ path, title, description, priority, parent, nav }))
+  return PAGES.map(({ path, title, description, priority, parent, nav, article }) => ({ path, title, description, priority, parent, nav, article, og: ogImage(path) }))
 }
 
 // schema.org data so search engines understand who this page is about
@@ -86,6 +86,19 @@ function pageData(siteUrl: string, page: (typeof PAGES)[number]) {
         '@id': `${siteUrl}${page.path}#breadcrumb`,
         itemListElement: crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: `${siteUrl}${c.path}` })),
       },
+      ...(page.article ? [{
+        '@type': 'BlogPosting',
+        '@id': `${siteUrl}${page.path}#article`,
+        mainEntityOfPage: { '@id': `${siteUrl}${page.path}#webpage` },
+        headline: page.nav,
+        description: page.description,
+        datePublished: page.article.date,
+        dateModified: page.article.date,
+        image: `${siteUrl}${ogImage(page.path)}`,
+        inLanguage: 'en-US',
+        author: { '@type': 'Person', '@id': `${siteUrl}/#person`, name: PERSON.name, url: `${siteUrl}/` },
+        publisher: { '@type': 'Person', '@id': `${siteUrl}/#person`, name: PERSON.name },
+      }] : []),
     ],
   }
 }

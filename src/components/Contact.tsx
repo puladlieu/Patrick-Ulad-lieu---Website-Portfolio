@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { PERSON, TOPICS } from '@/data/profile'
 import { WEB3FORMS_KEY } from '@/lib/site'
+import { track } from '@/lib/analytics'
 import { cn } from '@/lib/utils'
 import { Reveal } from './motion'
 
@@ -53,6 +54,7 @@ export function Contact() {
       })
       const data = await res.json()
       if (!data.success) throw new Error(data.message)
+      track('contact_form_sent', { topic })
       toast.success("Message sent. Thanks for reaching out, I'll get back to you soon.")
       form.reset()
     } catch {

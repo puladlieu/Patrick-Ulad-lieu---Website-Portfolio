@@ -1,5 +1,8 @@
+import { useEffect } from 'react'
+import { ArrowRight } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
-import { EXP_FILTERS, EXPERIENCE, type Role } from '@/data/profile'
+import { EXP_FILTERS, EXPERIENCE, PROJECTS, type Role } from '@/data/profile'
+import { roleId } from '@/lib/slug'
 import { cn } from '@/lib/utils'
 import { Disclosure } from './Disclosure'
 import { Reveal } from './motion'
@@ -10,32 +13,52 @@ const CATEGORIES = EXP_FILTERS.filter((f) => f.key !== 'all')
 
 function RoleCard({ x }: { x: Role }) {
   const n = EXPERIENCE.length - EXPERIENCE.indexOf(x)
+  const related = PROJECTS.filter((p) => p.role === x.role)
   return (
-    <article className="panel cut grid min-[900px]:grid-cols-[200px_1fr]">
-                          <div className={cn('flex flex-wrap items-center gap-x-4 gap-y-2.5 border-b border-line bg-chip px-[22px] py-[18px] min-[900px]:block min-[900px]:border-r min-[900px]:border-b-0 min-[900px]:p-6', x.featured && 'bg-foreground text-background')}>
-                            <div className="font-brand text-2xl leading-none">{pad(n)}</div>
-                            <Badge variant={x.active ? 'current' : 'past'} className="min-[900px]:mt-3.5">{x.active ? 'CURRENT' : 'PAST'}</Badge>
-                            <div className={cn('label min-[900px]:mt-3.5', x.featured && 'text-white/60')}>{x.period}</div>
-                            {x.note && <div className={cn('w-full text-[13px] text-dim min-[900px]:mt-1.5', x.featured && 'text-white/60')}>{x.note}</div>}
-                          </div>
-                          <div className="p-5 sm:px-7 sm:py-6">
-                            {x.featured && <div className="label mb-2 text-primary!">★ Primary role</div>}
-                            <h4 className="font-heading text-[25px] leading-[1.1] font-bold tracking-[.03em] uppercase">{x.role}</h4>
-                            <div className="mt-1 font-heading text-base leading-snug font-semibold tracking-[.08em] text-primary uppercase">{x.org}</div>
-                            <ul className="mt-4 grid gap-[9px]">
-                              {x.bullets.map((b) => (
-                                <li key={b} className="grid grid-cols-[18px_1fr] text-[15px] text-text-2 before:font-heading before:text-lg before:leading-[1.3] before:font-bold before:text-primary before:content-['›']">{b}</li>
-                              ))}
-                            </ul>
-                            <ul className="mt-[18px] flex flex-wrap gap-2 border-t border-dashed border-line-2 pt-4">
-                              {x.tech.map((t) => <li key={t}><Badge>{t}</Badge></li>)}
-                            </ul>
-                          </div>
-                        </article>
+    <article id={roleId(x.role)} className="panel cut grid scroll-mt-[120px] min-[900px]:grid-cols-[200px_1fr]">
+      <div className={cn('flex flex-wrap items-center gap-x-4 gap-y-2.5 border-b border-line bg-chip px-[22px] py-[18px] min-[900px]:block min-[900px]:border-r min-[900px]:border-b-0 min-[900px]:p-6', x.featured && 'bg-foreground text-background')}>
+        <div className="font-brand text-2xl leading-none">{pad(n)}</div>
+        <Badge variant={x.active ? 'current' : 'past'} className="min-[900px]:mt-3.5">{x.active ? 'CURRENT' : 'PAST'}</Badge>
+        <div className={cn('label min-[900px]:mt-3.5', x.featured && 'text-white/60')}>{x.period}</div>
+        {x.note && <div className={cn('w-full text-[13px] text-dim min-[900px]:mt-1.5', x.featured && 'text-white/60')}>{x.note}</div>}
+      </div>
+      <div className="p-5 sm:px-7 sm:py-6">
+        {x.featured && <div className="label mb-2 text-primary!">★ Primary role</div>}
+        <h4 className="font-heading text-[25px] leading-[1.1] font-bold tracking-[.03em] uppercase">{x.role}</h4>
+        <div className="mt-1 font-heading text-base leading-snug font-semibold tracking-[.08em] text-primary uppercase">{x.org}</div>
+        <ul className="mt-4 grid gap-[9px]">
+          {x.bullets.map((b) => (
+            <li key={b} className="grid grid-cols-[18px_1fr] text-[15px] text-text-2 before:font-heading before:text-lg before:leading-[1.3] before:font-bold before:text-primary before:content-['›']">{b}</li>
+          ))}
+        </ul>
+        {related.length > 0 && (
+          <div className="mt-[18px]">
+            <div className="label">Case studies from this role</div>
+            <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-2">
+              {related.map((p) => (
+                <li key={p.slug}>
+                  <a href={`/projects/${p.slug}/`} className="inline-flex items-center gap-1.5 font-heading text-[15px] font-semibold tracking-[.08em] text-primary uppercase hover:underline">{p.title} <ArrowRight className="size-3.5" /></a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        <ul className="mt-[18px] flex flex-wrap gap-2 border-t border-dashed border-line-2 pt-4">
+          {x.tech.map((t) => <li key={t}><Badge>{t}</Badge></li>)}
+        </ul>
+      </div>
+    </article>
   )
 }
 
 export function Experience() {
+  // Links like /experience/#role-id open the collapsed category that holds that role
+  useEffect(() => {
+    const target = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)))
+    const group = target && target.closest('details')
+    if (group && target) { group.open = true; target.scrollIntoView() }
+  }, [])
+
   // Each role sits under its primary category; every category is a collapsible group
   const groups = CATEGORIES.map((c) => ({ ...c, roles: EXPERIENCE.filter((x) => x.tags[0] === c.key) })).filter((g) => g.roles.length)
   return (

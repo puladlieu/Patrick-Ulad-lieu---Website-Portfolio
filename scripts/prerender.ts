@@ -9,12 +9,17 @@ const root = resolve(import.meta.dirname, '..')
 const dist = resolve(root, 'dist')
 
 // Same value Vite uses: the host environment variable first, then .env.production / .env
-const fromFile = ['.env.production', '.env']
+const env = (name: string) => process.env[name] || ['.env.production', '.env']
   .map((f) => resolve(root, f))
   .filter((f) => existsSync(f))
-  .map((f) => readFileSync(f, 'utf8').match(/^VITE_SITE_URL=(.*)$/m)?.[1]?.trim())
-  .find(Boolean)
-const siteUrl = (process.env.VITE_SITE_URL || fromFile || 'https://patrickuladlieu.netlify.app').replace(new RegExp('/+$'), '')
+  .map((f) => readFileSync(f, 'utf8').match(new RegExp(`^${name}=(.*)$`, 'm'))?.[1]?.trim())
+  .find(Boolean) || ''
+const siteUrl = (env('VITE_SITE_URL') || 'https://patrickuladlieu.netlify.app').replace(new RegExp('/+$'), '')
+// Google Analytics 4 is only allowed through the CSP when an ID is configured
+const ga = Boolean(env('VITE_GA_ID'))
+const GA_SCRIPT = ga ? ' https://www.googletagmanager.com' : ''
+const GA_CONNECT = ga ? ' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com' : ''
+const GA_IMG = ga ? ' https://*.google-analytics.com https://www.googletagmanager.com' : ''
 
 // Content-Security-Policy as a meta tag (the host can't set headers). The inline boot script is
 // allowed by its hash, so editing that script in index.html is picked up automatically on build.
@@ -27,11 +32,11 @@ function withCsp(page: string): string {
   const hash = createHash('sha256').update(inline).digest('base64')
   const policy = [
     "default-src 'self'",
-    `script-src 'self' 'sha256-${hash}'`,
+    `script-src 'self' 'sha256-${hash}'${GA_SCRIPT}`,
     "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' data:",
+    `img-src 'self' data:${GA_IMG}`,
     "font-src 'self' data:",
-    "connect-src 'self' https://api.web3forms.com",
+    `connect-src 'self' https://api.web3forms.com${GA_CONNECT}`,
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self' https://api.web3forms.com",
@@ -46,7 +51,7 @@ const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/"/g, '&quot;').repl
 const setMeta = (page: string, attr: string, name: string, value: string) =>
   page.replace(new RegExp(`(<meta ${attr}="${name}" content=")[^"]*(")`), (_m, a, b) => a + esc(value) + b)
 
-type PageInfo = { path: string; title: string; description: string; priority: number }
+type PageInfo = { path: string; title: string; description: string; priority: number; og: string; article?: { date: string } }
 const pages: PageInfo[] = server.pages()
 let totalKb = 0
 
@@ -67,14 +72,20 @@ for (const pg of pages) {
   out = setMeta(out, 'property', 'og:url', url)
   out = setMeta(out, 'name', 'twitter:title', pg.title)
   out = setMeta(out, 'name', 'twitter:description', pg.description)
-  if (pg.path !== '/') out = setMeta(out, 'property', 'og:type', 'website')
+  if (pg.path !== '/') out = setMeta(out, 'property', 'og:type', pg.article ? 'article' : 'website')
+  // Page-specific share image when `npm run og` has made one, otherwise the site-wide image
+  if (existsSync(resolve(dist, '.' + pg.og))) {
+    out = setMeta(out, 'property', 'og:image', `${siteUrl}${pg.og}`)
+    out = setMeta(out, 'name', 'twitter:image', `${siteUrl}${pg.og}`)
+    out = setMeta(out, 'property', 'og:image:alt', pg.title)
+  }
   const file = resolve(dist, '.' + pg.path, 'index.html')
   mkdirSync(dirname(file), { recursive: true })
   writeFileSync(file, withCsp(out))
 }
 
 const today = new Date().toISOString().slice(0, 10)
-const urls = pages.map((pg) => `  <url><loc>${siteUrl}${pg.path}</loc><lastmod>${today}</lastmod><priority>${pg.priority.toFixed(1)}</priority></url>`).join(String.fromCharCode(10))
+const urls = pages.map((pg) => `  <url><loc>${siteUrl}${pg.path}</loc><lastmod>${pg.article?.date ?? today}</lastmod><priority>${pg.priority.toFixed(1)}</priority></url>`).join(String.fromCharCode(10))
 writeFileSync(resolve(dist, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls}

@@ -17,13 +17,14 @@ Everything you would want to change (jobs, skills, schools, awards, contact info
 | `npm run dev` | Live-editing preview at http://localhost:5173 |
 | `npm run build` | Build the finished site into `dist/` |
 | `npm run preview` | Serve the built `dist/` at http://localhost:4173 |
-| `npm run og` | Regenerate the link-preview image after changing name or headline |
+| `npm run og` | Regenerate share images (site-wide plus one per page in `public/og/`) after changing titles |
 
 Requires Node.js 22.18 or newer.
 
 ## Settings (`.env`)
 
 - `VITE_SITE_URL`: your live address with no trailing slash. Used for SEO tags, `sitemap.xml`, and share previews. Change it once you know your final address, then rebuild.
+- `VITE_GA_ID`: Google Analytics 4 measurement ID (`G-…`). Analytics and its CSP entries stay off until this is set. Tracks page views, contact-form sends, email/LinkedIn clicks, and résumé downloads.
 - `VITE_WEB3FORMS_KEY`: free key from https://web3forms.com. With it, the contact form emails you directly. Without it, the form opens the visitor's email app.
 
 ## Deploy on Netlify
@@ -36,6 +37,10 @@ Requires Node.js 22.18 or newer.
 Without GitHub: run `npm run build` and drag the `dist` folder onto https://app.netlify.com/drop.
 
 ## SEO included
+
+- One pre-rendered page per URL (`src/pages.tsx`): skills, projects, each case study, experience, education, recommendations, notes, each note, contact
+- Per-page titles, descriptions, canonical links, share images, breadcrumbs, and `BlogPosting` data for notes
+- Internal links between case studies, roles, skills, and notes
 
 - Full pre-rendered HTML (no blank page for crawlers)
 - Title, description, canonical URL, Open Graph and Twitter share tags, 1200×630 share image

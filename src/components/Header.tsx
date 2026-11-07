@@ -32,7 +32,7 @@ export function Header({ path }: { path: string }) {
           </span>
         </a>
 
-        <nav aria-label="Primary" className="hidden lg:block">
+        <nav aria-label="Primary" className="hidden xl:block">
           <ul className="flex gap-0.5">
             {NAV.map(({ href, label }, i) => (
               <li key={href}>
@@ -57,9 +57,9 @@ export function Header({ path }: { path: string }) {
             <LinkedInIcon className="size-[18px]" />
           </a>
           {PERSON.resume
-            ? <a href={PERSON.resume} download className={cn(buttonVariants({ size: 'sm' }), 'hidden lg:inline-flex')}>Download résumé</a>
-            : <a href="/contact/" className={cn(buttonVariants({ size: 'sm' }), 'hidden lg:inline-flex')}>Hire as engineer</a>}
-          <Button variant="icon" size="icon" className="lg:hidden" aria-label="Menu" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
+            ? <a href={PERSON.resume} download className={cn(buttonVariants({ size: 'sm' }), 'hidden 2xl:inline-flex')}>Download résumé</a>
+            : <a href="/contact/" className={cn(buttonVariants({ size: 'sm' }), 'hidden 2xl:inline-flex')}>Hire as engineer</a>}
+          <Button variant="icon" size="icon" className="xl:hidden" aria-label="Menu" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
             {open ? <X /> : <Menu />}
           </Button>
         </div>
@@ -69,7 +69,7 @@ export function Header({ path }: { path: string }) {
         {open && (
           <m.nav
             aria-label="Mobile"
-            className="overflow-hidden border-t border-line lg:hidden"
+            className="overflow-hidden border-t border-line xl:hidden"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}

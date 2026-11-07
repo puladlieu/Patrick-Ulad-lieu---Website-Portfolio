@@ -29,6 +29,7 @@ export const NAV = [
   { href: '/experience/', label: 'Experience' },
   { href: '/education/', label: 'Education' },
   { href: '/recommendations/', label: 'Testimonials' },
+  { href: '/notes/', label: 'Notes' },
   { href: '/contact/', label: 'Contact' },
 ] as const
 
@@ -72,6 +73,8 @@ export const PILLARS: { title: string; icon: IconName; description: string; skil
 export const PROJECTS: {
   slug: string; title: string; org: string; period: string; icon: IconName
   metrics: [string, string][]; problem: string; built: string[]; outcome: string; tech: string[]
+  role: string // matches EXPERIENCE[].role, used to link the case study to the job
+  faq: [string, string][] // only restate facts already in this file
 }[] = [
   { slug: 'hardware-lifecycle-forecasting', title: 'Hardware lifecycle forecasting', org: 'City of Philadelphia · OIT', period: '2023 – Present', icon: 'chart',
     metrics: [['30,000+', 'employees covered'], ['40+', 'departments'], ['5,000+', 'high-risk assets flagged']],
@@ -83,7 +86,14 @@ export const PROJECTS: {
       'Produced a 2024–2028 hardware expiration forecast by department, with executive-ready risk reports for Police, Fire, and Emergency Services.',
     ],
     outcome: 'Moved City-wide planning from reactive hardware support to proactive, data-driven forecasting, giving leadership a budget and refresh plan years ahead.',
-    tech: ['Excel / VBA', 'Forecasting', 'Data Modeling', 'Data Cleaning', 'AI-Assisted Development'] },
+    tech: ['Excel / VBA', 'Forecasting', 'Data Modeling', 'Data Cleaning', 'AI-Assisted Development'],
+    role: 'IT Project Manager & Data Analyst',
+    faq: [
+      ['What problem did the forecast solve?', 'Laptop replacements were handled reactively, and warranty and asset data was fragmented, so the City could not see expirations or procurement demand coming.'],
+      ['How was it built?', 'I cleaned and standardized the asset datasets, then designed forecasting logic in Excel/VBA that models historical warranty and replacement patterns. ChatGPT helped draft formula and VBA syntax for logic I designed.'],
+      ['What did it produce?', 'A 2024–2028 hardware expiration forecast across 40+ departments that flagged 5,000+ aging, high-risk assets, plus executive-ready risk reports for Police, Fire, and Emergency Services.'],
+      ['What changed for the City?', 'Planning moved from reactive hardware support to proactive, data-driven forecasting, giving leadership a budget and refresh plan years ahead.'],
+    ] },
   { slug: 'teamdynamix-asset-migration', title: 'TeamDynamix asset migration', org: 'City of Philadelphia · OIT', period: '2023 – Present', icon: 'layers',
     metrics: [['100,000+', 'assets imported'], ['1,000+', 'fields unified'], ['+25%', 'tracking accuracy']],
     problem: 'IT asset tracking lived in static Excel sheets, with inconsistent naming and recurring data-entry errors.',
@@ -93,7 +103,14 @@ export const PROJECTS: {
       'Unified 1,000+ asset data fields to TDX conventions and verified 90+ City properties with OSINT methods for location accuracy.',
     ],
     outcome: 'Asset-tracking accuracy improved by about 25% and recurring data-entry errors dropped by 30%.',
-    tech: ['TeamDynamix', 'ETL', 'Data Validation', 'OSINT', 'Excel Automation'] },
+    tech: ['TeamDynamix', 'ETL', 'Data Validation', 'OSINT', 'Excel Automation'],
+    role: 'IT Project Manager & Data Analyst',
+    faq: [
+      ['Why move off spreadsheets?', 'Asset tracking lived in static Excel sheets with inconsistent naming and recurring data-entry errors.'],
+      ['What did the migration involve?', 'Designing and importing 100,000+ IT assets into TeamDynamix, with naming conventions, data integrity checks, and live sync integration, and unifying 1,000+ asset data fields to TDX conventions.'],
+      ['How were asset locations checked?', 'I verified 90+ City properties with OSINT methods to improve location accuracy in the tracking system.'],
+      ['What were the results?', 'Asset-tracking accuracy improved by about 25%, and recurring data-entry errors dropped by 30%.'],
+    ] },
   { slug: 'windows-11-readiness-reporting', title: 'Windows 11 readiness reporting', org: 'City of Philadelphia · OIT', period: '2023 – 2024', icon: 'terminal',
     metrics: [['14,000+', 'assets analyzed'], ['Weekly', 'leadership reports']],
     problem: 'Senior IT leadership needed to know which City devices could move to Windows 11 and what had to be replaced.',
@@ -103,7 +120,13 @@ export const PROJECTS: {
       'Delivered weekly analytical reports to the Director of Support Services, translating compatibility and risk data into purchasing and deployment decisions.',
     ],
     outcome: 'Gave leadership a clear, recurring view of upgrade readiness to drive purchasing and deployment.',
-    tech: ['VBA', 'Excel', 'Reporting Automation', 'Data Analysis'] },
+    tech: ['VBA', 'Excel', 'Reporting Automation', 'Data Analysis'],
+    role: 'IT Project Manager & Data Analyst',
+    faq: [
+      ['How many devices were analyzed?', '14,000+ City IT assets were checked for Windows 11 compatibility.'],
+      ['Who used the reports?', 'Senior IT leadership, with weekly analytical reports going to the Director of Support Services.'],
+      ['How were the reports produced?', 'With VBA-based upgrade-readiness reporting in Excel that translated compatibility and risk data into purchasing and deployment decisions.'],
+    ] },
 ]
 
 export const EXP_FILTERS = [

@@ -12,7 +12,8 @@ Personal portfolio for Patrick Ulad-Lieu. React 19 + Vite + Tailwind 4, pre-rend
 ## Deploy
 - Host: DigitalOcean App Platform static site, auto-deploys on every push to `main` on GitHub.
 - Live address is set in `.env.production` (`VITE_SITE_URL`). Changing domains = edit that line, rebuild, push.
-- Optional env vars (set in DigitalOcean app settings or `.env.production`): `VITE_WEB3FORMS_KEY` (contact form), `VITE_GA_ID` (Google Analytics 4, e.g. G-XXXXXXX). Analytics stays off until set.
+- Env vars (DigitalOcean app settings or `.env.production`): `VITE_GA_ID` is set (Google Analytics 4, G-ZY7KGBRFRW, property "Portfolio"). `VITE_WEB3FORMS_KEY` (contact form) is not set yet.
+- Google Search Console: verified for the ondigitalocean.app address via `public/google0c95f7469df8349b.html` (keep that file). Sitemap submitted 2026-11-07. A new domain needs a new Search Console property and a new GA stream URL.
 
 ## Rules
 - Never invent facts, numbers, or quotes about Patrick's work. Only use what is already in `profile.ts`, or ask.
